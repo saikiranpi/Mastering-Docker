@@ -9,12 +9,6 @@
 # Installing Docker & Network changes 
 # Listing namespaces for Docker Containers    
 # Running basic docker commands   
-# docker run  
-# docker ps & ps -a   
-# docker images   
-# docker network ls   
-# docker system prune 
-# docker stop & pause 
 # Understanding Docker Networking Options 
 # Building docker images with Dockerfile & Dockerfile instructions    
 # Docker Compose  
@@ -27,4 +21,4 @@
 # Docker Reservations & Limits    
 # Docker Healthchecks 
 # Docker cAdvisor for Monitoring  
-# Docker Log Collection
+# Docker Log Collection   
