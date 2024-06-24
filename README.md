@@ -1,7 +1,5 @@
 # Mastering-Docker
 
-# Inprogress
-
 ![Mastering](https://github.com/saikiranpi/Mastering-Docker/assets/109568252/ca9ea2d2-aa06-4573-a383-9bc5cf948f0d)
 
 # Containers vs Virtual Machines  
