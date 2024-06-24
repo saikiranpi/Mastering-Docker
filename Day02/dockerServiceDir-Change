@@ -1,0 +1,20 @@
+Create additional EBS Volume , fdisk and mount it.
+  
+sudo systemctl stop docker.service
+  
+sudo systemctl stop docker.socket
+  
+sudo nano /lib/systemd/system/docker.service Add the following line with the custom directo
+  
+#ExecStart=/usr/bin/dockerd -H fd:// -- containerd=/run/containerd/containerd.sock
+  
+# ExecStart=/usr/bin/dockerd --data-root /dockerdata -H fd:// -- containerd=/run/containerd/containerd. sock
+
+sudo rsync -aqxP /var/lib/docker/ /dockerdata
+  
+sudo systemctl daemon-reload && sudo systemctl start docker
+  
+sudo systemctl status docker --no-pager
+  
+ps aux | grep -i docker | grep -v grep
+
