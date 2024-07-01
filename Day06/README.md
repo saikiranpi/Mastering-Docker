@@ -1,3 +1,4 @@
+![6](https://github.com/saikiranpi/Mastering-Docker/assets/109568252/f4c8a7e7-3ed4-4b26-87ff-c20586ec3727)
 
 
 Google Distroless Images and Docker Multi-Stage Builds
