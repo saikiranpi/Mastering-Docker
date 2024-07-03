@@ -64,8 +64,8 @@ services:
   db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "NA"
+      POSTGRES_PASSWORD: "NA"
     volumes:
       - "db-data:/var/lib/postgresql/data"
       - "./healthchecks:/healthchecks"
