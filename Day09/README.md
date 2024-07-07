@@ -1,5 +1,6 @@
 
-![a-captivating-illustration-of-a-hacker-attempting--GYbvoeCWR3eH1qjFf5evgw-ijJCihjhRgi5pjvWKY7eNQ](https://github.com/saikiranpi/Mastering-Docker/assets/109568252/077c648a-5b82-4733-94a8-e34774d6a2e4)
+![a-captivating-digital-illustration-focusing-on-a-s--ldhCsL0SaSB-pMs7fMOJA-dt995hr7R0ONRvHTXm236w](https://github.com/saikiranpi/Mastering-Docker/assets/109568252/f7e17673-aaf1-46dc-8599-b30e1178bd21)
+
 
 # Docker Swarm Secrets: Securely Manage Sensitive Data (Part 2)
 
