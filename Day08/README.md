@@ -1,7 +1,6 @@
 ![08](https://github.com/saikiranpi/Mastering-Docker/assets/109568252/db7d65b8-86b4-4879-8907-6dc5ca121459)
 
 
-Sure! Here is the revised GitHub README with all commands grouped together:
 
 ---
 
