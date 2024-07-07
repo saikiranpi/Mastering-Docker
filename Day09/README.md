@@ -1,6 +1,7 @@
 
+![a-captivating-illustration-of-a-hacker-attempting--GYbvoeCWR3eH1qjFf5evgw-ijJCihjhRgi5pjvWKY7eNQ](https://github.com/saikiranpi/Mastering-Docker/assets/109568252/077c648a-5b82-4733-94a8-e34774d6a2e4)
 
-** Docker Swarm Secrets: Securely Manage Sensitive Data (Part 2) **
+# Docker Swarm Secrets: Securely Manage Sensitive Data (Part 2)
 
 **Introduction**
 
@@ -90,7 +91,7 @@ Once you've created your secret, you can mount it as an environment variable wit
 
 **Links**
 
-* Part 1 of your Docker Swarm series (if available)
+* Terraform Automation files here : https://github.com/saikiranpi/Terraform-Docker-Swarm-Cluster.git
 * Docker Swarm documentation on secrets: [https://docs.docker.com/reference/cli/docker/secret/](https://docs.docker.com/reference/cli/docker/secret/)
 
 This improved README provides a more comprehensive guide to Docker Swarm secrets, incorporates security best practices, and offers a clearer structure for understanding and implementing secure data management in your Docker Swarm environment.
