@@ -1,0 +1,13 @@
+Using traefik2.yml:
+
+docker network create --driver=overlay traefik-public
+export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
+export EMAIL=saikiran.pinapathruni18@gmail.com
+export DOMAIN=traefik.cloudvishwakarma.in
+export TRAEFIK_REPLICAS=1
+export USERNAME=adminsai
+export PASSWORD=India123456
+export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+
+docker stack deploy -c traefik2.yml traefik
