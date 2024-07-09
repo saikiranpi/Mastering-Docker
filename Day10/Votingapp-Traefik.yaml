@@ -1,0 +1,117 @@
+#Run steps in traefik-swarm-deployment-Pre-Req-Steps.
+#Update Route53 DNS Records for www, vote, result.
+#docker stack deploy -c traefik2.yml traefik
+#docker stack deploy -c votingapp_with_traefik.yml voting
+#Host(`vote.cloudvishwakarma.in`) || Host(`www.cloudvishwakarma.in`) giving issues. Create it for both http and https in the file.
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    networks:
+      - traefik-public
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - traefik-public
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+      placement:
+        constraints: [node.role == manager]
+  vote:
+    image: kiran2361993/testing:latestappvote
+    ports:
+      - 5000:80
+    networks:
+      - traefik-public
+    depends_on:
+      - redis
+    deploy:
+      replicas: 2
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.middlewares.vote-https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.vote-https-redirect.redirectscheme.permanent=true
+        - traefik.http.routers.vote-public-http.rule=Host(`vote.cloudvishwakarma.in`) || Host(`www.cloudvishwakarma.in`)
+        - traefik.http.routers.vote-public-http.entrypoints=http
+        - traefik.http.routers.vote-public-http.middlewares=https-redirect
+        - traefik.http.routers.vote-public-https.rule=Host(`vote.cloudvishwakarma.in`) || Host(`www.cloudvishwakarma.in`)
+        - traefik.http.routers.vote-public-https.entrypoints=https
+        - traefik.http.routers.vote-public-https.tls=true
+        - traefik.http.routers.vote-public-https.tls.certresolver=le
+        - traefik.http.services.vote-public.loadbalancer.server.port=80
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+  result:
+    image: kiran2361993/testing:latestappresults
+    ports:
+      - 5001:80
+    networks:
+      - traefik-public
+    depends_on:
+      - db
+    deploy:
+      replicas: 1 #Multiple Replicas is causing delay in result.
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.middlewares.result-https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.result-https-redirect.redirectscheme.permanent=true
+        - traefik.http.routers.result-public-http.rule=Host(`result.cloudvishwakarma.in`)
+        - traefik.http.routers.result-public-http.entrypoints=http
+        - traefik.http.routers.result-public-http.middlewares=https-redirect
+        - traefik.http.routers.result-public-https.rule=Host(`result.cloudvishwakarma.in`)
+        - traefik.http.routers.result-public-https.entrypoints=https
+        - traefik.http.routers.result-public-https.tls=true
+        - traefik.http.routers.result-public-https.tls.certresolver=le
+        - traefik.http.services.result-public.loadbalancer.server.port=80
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  worker:
+    image: kiran2361993/testing:latestappworker
+    networks:
+      - traefik-public
+    depends_on:
+      - db
+      - redis
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=VOTING]
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+
+networks:
+  traefik-public:
+    external: true
+
+volumes:
+  db-data:
