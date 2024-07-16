@@ -51,7 +51,7 @@ Containers are stateless by nature, meaning if a container is deleted, all data 
 
 3. **Run a MongoDB container with a volume**:
 
-   docker run --rm -d --name mongodb -v mongodb:/data/db -p 27017:27017 mongo:latest
+   docker run --rm -d --name mongodb -v mongodb:/data/db -p 27017:27017 mongo:latest.
 
 
 4. **Check running containers**:
