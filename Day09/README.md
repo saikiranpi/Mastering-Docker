@@ -8,7 +8,7 @@
 
 This repository complements Part 1 of the Docker Swarm series, focusing on secure management of sensitive data like database credentials, API keys, and more. By leveraging Docker Swarm secrets, you can separate sensitive information from your container images, enhancing the security posture of your applications.
 
-**Understanding Docker Swarm Secrets**
+**Understanding Docker Swarm Secrets*
 
 Docker Swarm secrets allow you to store sensitive information outside of container images, preventing accidental exposure or unauthorized access. Secrets are managed as key-value pairs and can be referenced within your containers for secure access.
 
