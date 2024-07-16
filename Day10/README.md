@@ -14,7 +14,7 @@ This repository demonstrates the setup of a voting application using Docker Swar
    - Manages SSL decryption and offloading.
 4. **Voting and Result Services**: 
    - **Vote Service**: Listens on TCP port 80.
-   - **Result Service**: Listens on TCP port 80.
+   - **Result Service**: Listens on TCP port 80
 
 ## Setup Instructions
 
