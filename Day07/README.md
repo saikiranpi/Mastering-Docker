@@ -7,7 +7,7 @@ Welcome to the Docker Compose Tutorial! This guide accompanies a video tutorial 
 
 ## What is Docker Compose?
 
-Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a simple YAML file to configure your application’s services, networks, and volumes, making it easier to run and scale applications with multiple Docker containers.
+Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a simple YAML file to configure your application’s services, networks, and volumes, making it easier to run and scale applications with multiple Docker containers
 
 ## Prerequisites
 
