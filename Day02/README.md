@@ -64,7 +64,7 @@ Example Command
 
 docker run --rm -d --name isolated-container --network none busybox
 
-This command runs a BusyBox container with no network connectivity, providing complete network isolation.
+This command runs a BusyBox container with no network connectivity, providing complete network isolation
 
 
 
