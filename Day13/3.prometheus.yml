@@ -1,0 +1,35 @@
+# Create Prometheus configuration file at /etc/prometheus/
+global:
+  scrape_interval: 15s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['ec2-34-235-127-49.compute-1.amazonaws.com:9093']
+
+rule_files:
+  - alert_rules.yml
+
+scrape_configs:
+  - job_name: 'Prometheus-Grafana'
+    static_configs:
+      - targets: ['ec2-34-235-127-49.compute-1.amazonaws.com:9090'] # Prometheus server
+
+  - job_name: 'node-exporter-server-1'
+    static_configs:
+      - targets: ['ec2-34-235-127-49.compute-1.amazonaws.com:9100'] # Prometheus-Grafana-NodeExporter
+
+  - job_name: 'node-exporter-server-2'
+    static_configs:
+      - targets: ['ec2-18-212-75-197.compute-1.amazonaws.com:9100'] # Node Exporter on server 1
+  
+  - job_name: 'node-exporter-server-3'
+    static_configs:
+      - targets: ['ec2-54-89-190-75.compute-1.amazonaws.com:9100'] # Node Exporter on server 2
+
+  - job_name: 'All_Servers'
+    static_configs:
+      - targets: 
+          - 'ec2-34-235-127-49.compute-1.amazonaws.com:9100'
+          - 'ec2-18-212-75-197.compute-1.amazonaws.com:9100'
+          - 'ec2-54-89-190-75.compute-1.amazonaws.com:9100' # Node Exporter all servers

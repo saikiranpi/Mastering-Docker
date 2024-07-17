@@ -1,0 +1,15 @@
+# /etc/systemd/system/alertmanager.service.yml
+[Unit]
+Description=Alertmanager for Prometheus
+
+[Service]
+Restart=always
+User=prometheus
+ExecStart=/usr/local/bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/etc/alertmanager/
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

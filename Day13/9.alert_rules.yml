@@ -1,0 +1,30 @@
+# /etc/Prometheus/alert_rules.yml
+groups:
+ - name: "All_Servers"
+   rules:
+   - alert: InstanceDown
+     expr: up == 0
+     for: 30s
+     labels:
+       severity: critical
+   - alert: Memory Less Than 80%
+     expr: node_memory_MemAvailable_bytes{job="All_Servers"} / node_memory_MemTotal_bytes{batch="b36",env="prod"} * 100 < 80
+     for: 1m
+     labels:
+       severity: warning
+   - alert: CPU At 100%
+     expr: (100 * max(1 - rate(node_cpu_seconds_total{job="AppServers",mode="idle"}[1m])) by (instance)) >= 90
+     for: 30s
+     labels:
+       severity: critical
+     annotations:
+       summary: Host high CPU load is 100% (instance {{ $labels.instance }})
+       description: "CPU load is at 100%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+   - alert: Disk Utilization More Than 50%
+     expr: (node_filesystem_avail_bytes{job="All_Servers"} * 100) / node_filesystem_size_bytes{job="All_Servers"} < 50 and ON (instance, device, mountpoint) node_filesystem_readonly{job="All_Servers"} == 0
+     for: 30s
+     labels:
+       severity: warning
+     annotations:
+       summary: Host out of disk space For Instance (instance {{ $labels.instance }})
+       description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

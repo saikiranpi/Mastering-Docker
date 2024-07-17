@@ -1,0 +1,71 @@
+# /etc/alertmanager/alertmanager.yml  
+global:
+    #CHANGE-PAGER-DUTY-URL && SLACKURL HERE-HERE
+
+  slack_api_url: 'https://hooks.slack.com/services/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'
+  pagerduty_url: 'https://events.pagerduty.com/generic/2010-04-15/create_event.json'
+
+route:
+  receiver: 'pagerduty-notifications'
+  group_by: ['alertname','instance','severity']
+
+
+  routes:
+    - receiver: "pagerduty-notifications"
+      group_wait: 10s
+      match_re:
+        severity: critical|warning
+      continue: true
+
+    - receiver: "slack-notifications"
+      group_wait: 10s
+      match_re:
+        severity: critical|warning
+      continue: true
+
+
+receivers:
+- name: 'pagerduty-notifications'
+  pagerduty_configs:
+  #ENTER SERVICE KEY FROM PAGER DUTY HERE
+  - service_key: beca6e0c1371420cd0fd713f1d873f17
+    send_resolved: true
+
+
+- name: 'slack-notifications'
+  slack_configs:
+  # CHANGE THE CHANNEL NAME
+  - channel: '#aws-devops-kubernetes'
+    send_resolved: true
+    icon_url: https://avatars3.githubusercontent.com/u/3380462
+    title: |-
+     [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.instance }}
+     {{- if gt (len .CommonLabels) (len .GroupLabels) -}}
+       {{" "}}(
+       {{- with .CommonLabels.Remove .GroupLabels.Names }}
+         {{- range $index, $label := .SortedPairs -}}
+           {{ if $index }}, {{ end }}
+           {{- $label.Name }}="{{ $label.Value -}}"
+         {{- end }}
+       {{- end -}}
+       )
+     {{- end }}
+    text: >-
+     {{ range .Alerts -}}
+     *Alert:* {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+
+     *Description:* {{ .Annotations.description }}
+
+     *Details:*
+       {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+       {{ end }}
+     {{ end }}
+
+
+# wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz -P /tmp
+# cd /tmp
+# tar -xvzf alertmanager-0.24.0.linux-amd64.tar.gz
+# mv alertmanager-0.24.0.linux-amd64/alertmanager /usr/local/bin
+# mkdir /etc/alertmanager/
+# sudo chown prometheus:prometheus /etc/alertmanager/
+
