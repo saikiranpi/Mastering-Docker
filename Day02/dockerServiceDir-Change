@@ -8,7 +8,7 @@ sudo nano /lib/systemd/system/docker.service Add the following line with the cus
   
 #ExecStart=/usr/bin/dockerd -H fd:// -- containerd=/run/containerd/containerd.sock
   
-ExecStart=/usr/bin/dockerd --data-root /dockerdata -H fd:// -- containerd=/run/containerd/containerd. sock
+ExecStart=/usr/bin/dockerd --data-root /dockerdata -H fd:// --containerd=/run/containerd/containerd.sock
 
 sudo rsync -aqxP /var/lib/docker/ /dockerdata
   
