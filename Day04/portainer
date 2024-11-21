@@ -1,0 +1,5 @@
+Portainer consists of two elements, the Portainer Server, and the Portainer Agent. Both elements run as lightweight Docker containers on a Docker engine. 
+This document will help you install the Portainer Server container on your Linux environment. 
+To add a new Linux environment to an existing Portainer Server installation, please refer to the Portainer Agent installation instructions.
+
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:2.21.4
