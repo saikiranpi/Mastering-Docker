@@ -96,6 +96,11 @@ To check the history of the Docker image:
 
 docker history your_image_name:v3
 
+### Cleanup unused Docker objects
+
+Remove all unused containers, networks, images (both dangling and unused), and optionally, volumes.
+
+docker system prune
 
 ## Dockerfile Instructions Explained
 
