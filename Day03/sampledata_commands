@@ -15,7 +15,7 @@ db.helo.insertMany([
         	{ "_id" : 7, "name" : "Karen3", "status": "active", "level": 7, "score":87},
         	{ "_id" : 8, "name" : "Katie4", "status": "active", "level": 3, "score":27, "status": "married", "emp": "yes", "kids": 3}
         	])
-db.helo.find({name: "Katie"})
+db.helo.find({name: "Karen"})
 
 ##############################################
 
